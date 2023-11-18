@@ -1,19 +1,19 @@
 const mongoose=require('mongoose')
-
+const {Schema }=mongoose;
 const userSchema = new Schema({
     name:{
-        type:string,
+        type:String,
         required:true
 
     },
-    emai:{
-        type:string,
+    email:{
+        type:String,
         required:true,
         unique:true
 
     },
     password:{
-        type:string,
+        type:String,
         requied:true
     },
     date:{

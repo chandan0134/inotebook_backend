@@ -2,18 +2,18 @@ const mongoose=require('mongoose')
 
 const NoteSchema = new Schema({
     name:{
-        type:string,
+        type:String,
         required:true
 
     },
     description:{
-        type:string,
+        type:String,
         required:true,
         unique:true
 
     },
     tag:{
-        type:string,
+        type:String,
         requied:true,
         default:general
     },
