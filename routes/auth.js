@@ -1,38 +1,42 @@
 const express = require('express');
-const User=require('../models/User')
+const User = require('../models/User');
 const router = express.Router();
+const { body, validationResult } = require('express-validator');
 
-// router.get('/', (req, res) => {
-//     console.log(req.body);
-    
-//     res.send("hello");
-// });
-
-// module.exports = router;
-
-
-
-router.post('/', async (req, res) => {
+router.post(
+  '/',
+  [
+    body('name').notEmpty(),
+    body('email').isEmail(),
+    body('password').isLength({ min: 5 })
+  ],
+  async (req, res) => {
     try {
-        const { name, email, password,date } = req.body;
+      const errors = validationResult(req);
 
-        // Create a new User instance
-        const user = new User({
-            name,
-            email,
-            password,
-            date
-        });
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
 
-        // Save the user to the database
-        const savedUser = await user.save();
+      const { name, email, password } = req.body;
 
-        // Send the saved user data as the response
-        res.json(savedUser);
+      // Create a new User instance
+      const user = new User({
+        name,
+        email,
+        password
+      });
+
+      // Save the user to the database
+      const savedUser = await user.save();
+
+      // Send the saved user data as the response
+      res.json(savedUser);
     } catch (error) {
-        // If an error occurs during the process, send a 400 status with the error message
-        res.status(400).json({ error: error.message });
+      // If an error occurs during the process, send a 500 status with the error message
+      res.status(500).json({ error: error.message });
     }
-});
+  }
+);
 
 module.exports = router;
