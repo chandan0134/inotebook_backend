@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
+    
     name: {
         type: String,
         required: true
@@ -9,7 +10,7 @@ const userSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true // Ensure uniqueness for the email field
+        unique: true  
     },
     password: {
         type: String,

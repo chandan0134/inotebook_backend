@@ -4,7 +4,7 @@ const authRoutes = require('./routes/auth'); // Corrected path
 const notesRoutes = require('./routes/notes'); // Corrected path
 
 const URI = "mongodb://127.0.0.1:27017/notebook";
-const port = 3000;
+const port = 5000;
 const app = express();
 
 mongoose.connect(URI, {})
